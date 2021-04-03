@@ -45,7 +45,8 @@ onready var sound_effect_land = sound_effects.get_node(@"Land")
 onready var sound_effect_shoot = sound_effects.get_node(@"Shoot")
 
 func _init():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	pass
 
 
 func _ready():
@@ -205,6 +206,8 @@ func _physics_process(delta):
 
 
 func _input(event):
+	if event.is_action_pressed("quit"):
+		get_tree().quit()
 	if event is InputEventMouseMotion:
 		var camera_speed_this_frame = CAMERA_MOUSE_ROTATION_SPEED
 		if aiming:
