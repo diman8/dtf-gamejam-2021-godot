@@ -171,7 +171,7 @@ y_label = "gun"
 
 [sub_resource type="AnimationNodeBlendTree" id=30]
 resource_local_to_scene = true
-graph_offset = Vector2( 1, 85 )
+graph_offset = Vector2( -751, -149 )
 nodes/aim/node = SubResource( 9 )
 nodes/aim/position = Vector2( 380, 120 )
 nodes/aimdown/node = SubResource( 10 )

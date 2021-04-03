@@ -68,13 +68,6 @@ func _process(_delta):
 
 
 func _physics_process(delta):
-	var camera_move = Vector2(
-			Input.get_action_strength("view_right") - Input.get_action_strength("view_left"),
-			Input.get_action_strength("view_up") - Input.get_action_strength("view_down"))
-	var camera_speed_this_frame = delta * CAMERA_CONTROLLER_ROTATION_SPEED
-	if aiming:
-		camera_speed_this_frame *= 0.5
-	rotate_camera(camera_move * camera_speed_this_frame)
 	var motion_target = Vector2(
 			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 			Input.get_action_strength("move_back") - Input.get_action_strength("move_forward"))
@@ -125,10 +118,10 @@ func _physics_process(delta):
 		animation_tree["parameters/state/current"] = 0
 
 		# Change aim according to camera rotation.
-		if camera_x_rot >= 0: # Aim up.
-			animation_tree["parameters/aim/add_amount"] = -camera_x_rot / deg2rad(CAMERA_X_ROT_MAX)
-		else: # Aim down.
-			animation_tree["parameters/aim/add_amount"] = camera_x_rot / deg2rad(CAMERA_X_ROT_MIN)
+#		if camera_x_rot >= 0: # Aim up.
+#			animation_tree["parameters/aim/add_amount"] = -camera_x_rot / deg2rad(CAMERA_X_ROT_MAX)
+#		else: # Aim down.
+#			animation_tree["parameters/aim/add_amount"] = camera_x_rot / deg2rad(CAMERA_X_ROT_MIN)
 
 		# Convert orientation to quaternions for interpolating rotation.
 		var q_from = orientation.basis.get_rotation_quat()
@@ -172,14 +165,14 @@ func _physics_process(delta):
 			sound_effect_shoot.play()
 			camera_camera.add_trauma(0.35)
 
-	else: # Not in air or aiming, idle.
+	else:
+		# Not in air or aiming, idle.
 		# Convert orientation to quaternions for interpolating rotation.
-		var target = camera_x * motion.x + camera_z * motion.y
-		if target.length() > 0.001:
-			var q_from = orientation.basis.get_rotation_quat()
-			var q_to = Transform().looking_at(target, Vector3.UP).basis.get_rotation_quat()
-			# Interpolate current rotation with desired one.
-			orientation.basis = Basis(q_from.slerp(q_to, delta * ROTATION_INTERPOLATE_SPEED))
+
+		var q_from = orientation.basis.get_rotation_quat()
+		var q_to = camera_base.global_transform.basis.get_rotation_quat()
+		# Interpolate current rotation with desired one.
+		orientation.basis = Basis(q_from.slerp(q_to, delta * ROTATION_INTERPOLATE_SPEED))
 
 		# Aim to zero (no aiming while walking).
 		animation_tree["parameters/aim/add_amount"] = 0
@@ -206,7 +199,6 @@ func _physics_process(delta):
 	
 	var above_floor_vec = Vector3(0,0.4,0)
 	DebugDraw.draw_line_3d(global_transform.origin + above_floor_vec, global_transform.origin + above_floor_vec + velocity, Color.red)
-	DebugDraw.draw_line_3d(global_transform.origin + above_floor_vec, global_transform.origin + above_floor_vec + Vector3(motion.x, 0, motion.y), Color.green)
 
 
 func _input(event):
