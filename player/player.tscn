@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://player/player.gd" type="Script" id=1]
 [ext_resource path="res://player/model/player.glb" type="PackedScene" id=2]
@@ -120,7 +120,7 @@ animation = "strafe_back-cycle"
 
 [sub_resource type="AnimationNodeAnimation" id=22]
 resource_local_to_scene = true
-animation = "strafe_front-cycle"
+animation = "running_aiming"
 
 [sub_resource type="AnimationNodeAnimation" id=23]
 resource_local_to_scene = true
@@ -141,19 +141,21 @@ blend_point_4/pos = Vector2( 0, 0 )
 
 [sub_resource type="AnimationNodeAnimation" id=25]
 resource_local_to_scene = true
-animation = "Idle-cycle"
+animation = "Idlecombatrest-cycle"
 
 [sub_resource type="AnimationNodeAnimation" id=26]
 resource_local_to_scene = true
-animation = "running_nogun-cycle"
-
-[sub_resource type="AnimationNodeAnimation" id=27]
-resource_local_to_scene = true
-animation = "running_gun-cycle"
+animation = "strafe_right-cycle"
 
 [sub_resource type="AnimationNodeAnimation" id=28]
 resource_local_to_scene = true
-animation = "Idlecombat-cycle"
+animation = "running_gun-cycle"
+
+[sub_resource type="AnimationNodeAnimation" id=36]
+animation = "strafe_left-cycle"
+
+[sub_resource type="AnimationNodeAnimation" id=37]
+animation = "strafe_back-cycle"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id=29]
 resource_local_to_scene = true
@@ -161,17 +163,18 @@ blend_point_0/node = SubResource( 25 )
 blend_point_0/pos = Vector2( 0, 0 )
 blend_point_1/node = SubResource( 26 )
 blend_point_1/pos = Vector2( 1, 0 )
-blend_point_2/node = SubResource( 27 )
-blend_point_2/pos = Vector2( 1, 1 )
-blend_point_3/node = SubResource( 28 )
-blend_point_3/pos = Vector2( 0, 1 )
-min_space = Vector2( 0, 0 )
-x_label = "speed"
-y_label = "gun"
+blend_point_2/node = SubResource( 28 )
+blend_point_2/pos = Vector2( 0, 1 )
+blend_point_3/node = SubResource( 36 )
+blend_point_3/pos = Vector2( -1, 0 )
+blend_point_4/node = SubResource( 37 )
+blend_point_4/pos = Vector2( 0, -1 )
+x_label = "y"
+y_label = "x"
 
 [sub_resource type="AnimationNodeBlendTree" id=30]
 resource_local_to_scene = true
-graph_offset = Vector2( -751, -149 )
+graph_offset = Vector2( -755, -79.25 )
 nodes/aim/node = SubResource( 9 )
 nodes/aim/position = Vector2( 380, 120 )
 nodes/aimdown/node = SubResource( 10 )
@@ -207,24 +210,12 @@ height = 0.6
 
 [sub_resource type="Animation" id=33]
 tracks/0/type = "value"
-tracks/0/path = NodePath("CameraRot/SpringArm:translation")
+tracks/0/path = NodePath("../Crosshair:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 0.287175, 1 ),
-"update": 3,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("../Crosshair:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0.3 ),
 "transitions": PoolRealArray( 1 ),
 "update": 3,
@@ -233,24 +224,12 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=34]
 tracks/0/type = "value"
-tracks/0/path = NodePath("CameraRot/SpringArm:translation")
+tracks/0/path = NodePath("../Crosshair:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 0.233259, 1 ),
-"update": 3,
-"values": [ Vector3( -0.6, -0.3, 1.1 ), Vector3( -0.6, -0.3, 1.1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("../Crosshair:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0.3 ),
 "transitions": PoolRealArray( 1 ),
 "update": 3,
@@ -325,32 +304,23 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.00
 shape = SubResource( 32 )
 
 [node name="CameraBase" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 __meta__ = {
 "_editor_description_": "Handles Y rotation (yaw)."
 }
 
-[node name="CameraRot" type="Spatial" parent="CameraBase"]
-__meta__ = {
-"_editor_description_": "Handles X rotation (pitch)."
-}
+[node name="Animation" type="AnimationPlayer" parent="CameraBase"]
+anims/far = SubResource( 33 )
+anims/shoot = SubResource( 34 )
 
-[node name="SpringArm" type="SpringArm" parent="CameraBase/CameraRot"]
-transform = Transform( -1, -1.11444e-07, 3.06191e-07, 0, 0.939693, 0.34202, -3.25841e-07, 0.34202, -0.939693, 0, 0, 0 )
-spring_length = 2.4
-
-[node name="Camera" type="Camera" parent="CameraBase/CameraRot/SpringArm"]
-transform = Transform( 1, 1.42109e-14, -2.84217e-14, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+[node name="Camera" type="Camera" parent="CameraBase"]
+transform = Transform( -0.622091, 0.594654, -0.509302, 0, 0.650496, 0.75951, 0.782945, 0.472484, -0.404668, -4, 8, -4 )
 current = true
 far = 300.0
 script = ExtResource( 8 )
 __meta__ = {
 "_editor_description_": "Translated when aiming."
 }
-
-[node name="Animation" type="AnimationPlayer" parent="CameraBase"]
-anims/far = SubResource( 33 )
-anims/shoot = SubResource( 34 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -362,6 +332,7 @@ __meta__ = {
 }
 
 [node name="Crosshair" type="TextureRect" parent="."]
+visible = false
 self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
@@ -380,6 +351,7 @@ __meta__ = {
 
 [node name="Step" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource( 4 )
+volume_db = -41.2591
 
 [node name="Jump" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource( 5 )

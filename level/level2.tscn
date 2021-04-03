@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://level/level.gd" type="Script" id=1]
 [ext_resource path="res://level/geometry/giprobe_data.res" type="GIProbeData" id=5]
@@ -20,6 +20,8 @@ albedo_color = Color( 0.941176, 0.941176, 0.941176, 1 )
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 100, 0.001, 100 )
 
+[sub_resource type="BoxShape" id=7]
+
 [node name="Level" type="Spatial"]
 script = ExtResource( 1 )
 
@@ -29,6 +31,8 @@ light_energy = 0.3
 shadow_enabled = true
 directional_shadow_mode = 0
 directional_shadow_split_3 = 0.327
+directional_shadow_normal_bias = 0.0
+directional_shadow_bias_split_scale = 0.26
 directional_shadow_depth_range = 1
 directional_shadow_max_distance = 20.0
 
@@ -72,7 +76,7 @@ interior_ambient_color = Color( 0.2, 0.129412, 0.0470588, 1 )
 interior_ambient_contrib = 0.3
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
-transform = Transform( -0.575826, 0, -0.817573, 0, 1, 0, 0.817573, 0, -0.575826, 1.94315, 0, -0.245064 )
+transform = Transform( -0.575826, 0, -0.817573, 0, 1, 0, 0.817573, 0, -0.575826, 1.94315, -0.470175, -0.245064 )
 
 [node name="RedRobot1" parent="." instance=ExtResource( 7 )]
 transform = Transform( 0.843905, 0, -0.536493, 0, 1, 0, 0.536493, 0, 0.843905, 71.591, 0, 46.274 )
@@ -114,3 +118,12 @@ material = SubResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="CSGBox/StaticBody"]
 shape = SubResource( 3 )
+
+[node name="CSGBox2" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65261, 0.501901, -2.1181 )
+material = SubResource( 4 )
+
+[node name="StaticBody" type="StaticBody" parent="CSGBox2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="CSGBox2/StaticBody"]
+shape = SubResource( 7 )
