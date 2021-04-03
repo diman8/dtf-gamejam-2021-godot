@@ -81,10 +81,10 @@ transform = Transform( 0.843905, 0, -0.536493, 0, 1, 0, 0.536493, 0, 0.843905, 7
 transform = Transform( 0.338334, 0, 0.941027, 0, 1, 0, -0.941027, 0, 0.338334, 53.213, 0, 15.932 )
 
 [node name="RedRobot3" parent="." instance=ExtResource( 7 )]
-transform = Transform( -0.164432, 0, 0.986389, 0, 1, 0, -0.986389, 0, -0.164432, -2.961, 0, 20.234 )
+transform = Transform( -0.164432, 0, 0.986389, 0, 1, 0, -0.986389, 0, -0.164432, -2.961, 0, 43.4194 )
 
 [node name="RedRobot4" parent="." instance=ExtResource( 7 )]
-transform = Transform( -0.164432, 0, 0.986389, 0, 1, 0, -0.986389, 0, -0.164432, -9.155, 0, -16.924 )
+transform = Transform( -0.164432, 0, 0.986389, 0, 1, 0, -0.986389, 0, -0.164432, -28.2996, 0, -16.924 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )

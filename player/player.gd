@@ -45,7 +45,7 @@ onready var sound_effect_land = sound_effects.get_node(@"Land")
 onready var sound_effect_shoot = sound_effects.get_node(@"Shoot")
 
 func _init():
-#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	pass
 
 
@@ -203,6 +203,10 @@ func _physics_process(delta):
 	orientation = orientation.orthonormalized() # Orthonormalize orientation.
 
 	player_model.global_transform.basis = orientation.basis
+	
+	var above_floor_vec = Vector3(0,0.4,0)
+	DebugDraw.draw_line_3d(global_transform.origin + above_floor_vec, global_transform.origin + above_floor_vec + velocity, Color.red)
+	DebugDraw.draw_line_3d(global_transform.origin + above_floor_vec, global_transform.origin + above_floor_vec + Vector3(motion.x, 0, motion.y), Color.green)
 
 
 func _input(event):
