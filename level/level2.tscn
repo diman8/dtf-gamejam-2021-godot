@@ -1,6 +1,7 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://level/level.gd" type="Script" id=1]
+[ext_resource path="res://level/prefabs/cube.tscn" type="PackedScene" id=2]
 [ext_resource path="res://level/geometry/giprobe_data.res" type="GIProbeData" id=5]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://enemies/red_robot/red_robot.tscn" type="PackedScene" id=7]
@@ -19,8 +20,6 @@ albedo_color = Color( 0.941176, 0.941176, 0.941176, 1 )
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 100, 0.001, 100 )
-
-[sub_resource type="BoxShape" id=7]
 
 [node name="Level" type="Spatial"]
 script = ExtResource( 1 )
@@ -119,11 +118,13 @@ material = SubResource( 4 )
 [node name="CollisionShape" type="CollisionShape" parent="CSGBox/StaticBody"]
 shape = SubResource( 3 )
 
-[node name="CSGBox2" type="CSGBox" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65261, 0.501901, -2.1181 )
-material = SubResource( 4 )
+[node name="CSGBox3" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.613182, 0.339635, -2.91118 )
+width = 4.96456
+height = 1.05875
 
-[node name="StaticBody" type="StaticBody" parent="CSGBox2"]
-
-[node name="CollisionShape" type="CollisionShape" parent="CSGBox2/StaticBody"]
-shape = SubResource( 7 )
+[node name="CSGBox4" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.72574, 0.339635, -2.91118 )
+width = 1.73986
+height = 2.04629
+depth = 3.03693

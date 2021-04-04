@@ -120,7 +120,7 @@ animation = "strafe_back-cycle"
 
 [sub_resource type="AnimationNodeAnimation" id=22]
 resource_local_to_scene = true
-animation = "running_aiming"
+animation = "running_gun-cycle"
 
 [sub_resource type="AnimationNodeAnimation" id=23]
 resource_local_to_scene = true
@@ -174,7 +174,7 @@ y_label = "x"
 
 [sub_resource type="AnimationNodeBlendTree" id=30]
 resource_local_to_scene = true
-graph_offset = Vector2( -755, -79.25 )
+graph_offset = Vector2( -714.361, -117.826 )
 nodes/aim/node = SubResource( 9 )
 nodes/aim/position = Vector2( 380, 120 )
 nodes/aimdown/node = SubResource( 10 )
@@ -351,7 +351,7 @@ __meta__ = {
 
 [node name="Step" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource( 4 )
-volume_db = -41.2591
+volume_db = -0.166876
 
 [node name="Jump" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource( 5 )
