@@ -20,8 +20,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Godot Third-Person Shooter Demo"
-config/description="Godot Third Person Shooter with high quality assets and lighting"
+config/name="DTF Gamejam 2021"
 run/main_scene="res://level/level2.tscn"
 config/icon="res://icon.png"
 
